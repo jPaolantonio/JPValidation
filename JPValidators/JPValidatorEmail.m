@@ -10,8 +10,27 @@
 
 @implementation JPValidatorEmail
 
-- (JPValidationResponse *)validate:(NSString *)string {
-    return [JPValidationResponse validationStatus:jpSuccessValidation errors:nil];
+/*- (JPValidationResponse *)validate {
+    NSString *emailRegex = @"[a-zA-Z0-9.\\-_]{2,32}@[a-zA-Z0-9.\\-_]{2,32}\.[A-Za-z]{2,4}";
+    NSPredicate *regExPredicate = [NSPredicate predicateWithFormat:@"SELF MATCHES %@", emailRegex];
+    
+    BOOL validEmail = [regExPredicate evaluateWithObject:txtField.text];
+    
+    if ()
+    
+    return [JPValidationResponse validationStatus:jpSuccessValidation type:jpValidationIndividual errors:nil];
+}*/
+
+- (JPValidationResponse *)validate {
+    NSString *emailRegex = @"[a-zA-Z0-9.\\-_]{2,32}@[a-zA-Z0-9.\\-_]{2,32}\.[A-Za-z]{2,4}";
+    NSPredicate *regExPredicate = [NSPredicate predicateWithFormat:@"SELF MATCHES %@", emailRegex];
+    
+    if ([regExPredicate evaluateWithObject:self.string]) {
+        return [JPValidationResponse validationStatus:jpSuccessValidation type:jpValidationIndividual errors:nil];
+    }
+    else {
+        return [JPValidationResponse validationStatus:jpErrorValidation type:jpValidationIndividual errors:[NSArray arrayWithObject:self]];
+    }
 }
 
 @end
