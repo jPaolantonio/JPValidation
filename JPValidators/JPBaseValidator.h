@@ -7,7 +7,16 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "JPValidationResponse.h"
 
-@interface JPBaseValidator : NSObject
+@protocol JPValidator <NSObject>
+
+- (JPValidationResponse *)validate;
+
+@end
+
+@interface JPBaseValidator : NSObject <JPValidator>
+
+@property (strong, nonatomic) NSString *string;
 
 @end

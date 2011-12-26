@@ -7,7 +7,44 @@
 //
 
 #import "JPValidation.h"
+#import "JPValidationResponse.h"
+#import "JPBaseValidator.h"
 
 @implementation JPValidation
+
+- (JPValidationResponse *)checkValidation:(JPBaseValidator *)validator {
+    JPValidationResponse *validationResponse = [[[JPValidationResponse alloc] init] autorelease];
+    validationResponse.type = jpValidationTotal;
+    
+    if ([validator validate] == jpSuccessValidation) {
+        validationResponse.status = jpSuccessValidation;
+    }
+    else {
+        validationResponse.status = jpErrorValidation;
+        validationResponse.errors = [NSArray arrayWithObject:validator];
+    }
+    
+    return validationResponse;
+}
+
+- (JPValidationResponse *)checkValidations:(NSArray *)validations {
+    JPValidationResponse *validationResponse = [[[JPValidationResponse alloc] init] autorelease];
+    validationResponse.type = jpValidationTotal;
+    
+    validationResponse.status = jpSuccessValidation;
+    
+    NSMutableArray *errorsArray = [[NSMutableArray alloc] init];
+    for (JPBaseValidator *validator in validations) {
+        if ([validator validate] != jpSuccessValidation) {
+            [errorsArray addObject:validator];
+            validationResponse.status = jpErrorValidation;
+        }
+    }
+    
+    validationResponse.errors = errorsArray;
+    [errorsArray release];
+    
+    return validationResponse;
+}
 
 @end

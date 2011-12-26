@@ -10,4 +10,8 @@
 
 @implementation JPValidatorEmail
 
+- (JPValidationResponse *)validate:(NSString *)string {
+    return [JPValidationResponse validationStatus:jpSuccessValidation errors:nil];
+}
+
 @end

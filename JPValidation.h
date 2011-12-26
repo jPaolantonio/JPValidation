@@ -13,11 +13,16 @@ typedef enum {
     jpErrorValidation
 } jpValidationStatus;
 
-@class JPBaseValidation;
+typedef enum {
+    jpValidationIndividual,
+    jpValidationTotal
+} jpValidationStatusType;
+
+@class JPValidationResponse, JPBaseValidator;
 
 @interface JPValidation : NSObject
 
-- (void)checkValidation:(JPBaseValidation *)validation;
-- (void)checkValidations:(NSArray *)validations;
+- (JPValidationResponse *)checkValidation:(JPBaseValidator *)validator;
+- (JPValidationResponse *)checkValidations:(NSArray *)validations;
 
 @end
