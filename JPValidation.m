@@ -7,16 +7,15 @@
 //
 
 #import "JPValidation.h"
-#import "JPValidationResponse.h"
-#import "JPBaseValidator.h"
+
 
 @implementation JPValidation
 
-- (JPValidationResponse *)checkValidation:(JPBaseValidator *)validator {
++ (JPValidationResponse *)checkValidation:(JPBaseValidator *)validator {
     JPValidationResponse *validationResponse = [[[JPValidationResponse alloc] init] autorelease];
     validationResponse.type = jpValidationTotal;
     
-    if ([validator validate] == jpSuccessValidation) {
+    if ([validator validate].status == jpSuccessValidation) {
         validationResponse.status = jpSuccessValidation;
     }
     else {
@@ -27,7 +26,7 @@
     return validationResponse;
 }
 
-- (JPValidationResponse *)checkValidations:(NSArray *)validations {
++ (JPValidationResponse *)checkValidations:(NSArray *)validations {
     JPValidationResponse *validationResponse = [[[JPValidationResponse alloc] init] autorelease];
     validationResponse.type = jpValidationTotal;
     
@@ -35,7 +34,7 @@
     
     NSMutableArray *errorsArray = [[NSMutableArray alloc] init];
     for (JPBaseValidator *validator in validations) {
-        if ([validator validate] != jpSuccessValidation) {
+        if ([validator validate].status != jpSuccessValidation) {
             [errorsArray addObject:validator];
             validationResponse.status = jpErrorValidation;
         }

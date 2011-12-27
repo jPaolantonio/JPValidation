@@ -11,12 +11,6 @@
 @implementation JPBaseValidator
 @synthesize string = _string;
 
-- (id)init {
-    [self doesNotRecognizeSelector:_cmd];
-    return nil;
-    
-}
-
 - (JPValidationResponse *)validate {
     return [JPValidationResponse validationStatus:jpSuccessValidation type:jpValidationIndividual errors:nil];
 }

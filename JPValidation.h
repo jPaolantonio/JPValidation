@@ -7,22 +7,14 @@
 //
 
 #import <Foundation/Foundation.h>
-
-typedef enum {
-    jpSuccessValidation,
-    jpErrorValidation
-} jpValidationStatus;
-
-typedef enum {
-    jpValidationIndividual,
-    jpValidationTotal
-} jpValidationStatusType;
+#import "JPValidationResponse.h"
+#import "JPBaseValidator.h"
 
 @class JPValidationResponse, JPBaseValidator;
 
 @interface JPValidation : NSObject
 
-- (JPValidationResponse *)checkValidation:(JPBaseValidator *)validator;
-- (JPValidationResponse *)checkValidations:(NSArray *)validations;
++ (JPValidationResponse *)checkValidation:(JPBaseValidator *)validator;
++ (JPValidationResponse *)checkValidations:(NSArray *)validations;
 
 @end
